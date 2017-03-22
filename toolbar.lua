@@ -77,7 +77,7 @@ function toolbar:createActions(actionsProperties, container)
                 if #actionsProperties == 1 then
                     x = (self.menuBottomContainer.width-actionIconSize)*0.5
                 else
-                    print("lala")
+                    
                     x = (self.menuBottomContainer.width-#actionsProperties*actionIconSize)/(#actionsProperties+1)
                     
                 --x = self.menuBottomContainer.width-(actionIconSize+10)
@@ -85,8 +85,6 @@ function toolbar:createActions(actionsProperties, container)
                 end
                 y = display.contentHeight-(actionIconSize+10)
             end
-            print("x primeiro = ")
-            print(x)
         end
 
         if actionsProperties[i].defaultFile ~= nil and actionsProperties[i].scene ~= nil then
@@ -171,18 +169,23 @@ function toolbar:createTopContainer(options)
         local y
         if( options.textProperty.align == "center") then
             x=self.menuTopContainer.width*0.5
+            
         elseif options.textProperty.align == "left" then
             if options.trigger == true then
                 x = self.menuTopContainer.width*0.25
             else
-                x = self.menuTopContainer.width*0.1
+                x = self.menuTopContainer.width*0.05
             end
         end
 
-        y=self.menuTopContainer.height*0.5
+        y=self.menuTopContainer.height*0.25
 
         self.menuTopContainer.text = display.newText({text=options.textProperty.text, x=x, y=y, font=native.systemFontBold, fontSize=20})
         self.menuTopContainer.text:setFillColor(unpack(options.textProperty.color))
+        if options.textProperty.align == "left" then
+            self.menuTopContainer.text.anchorX = 0
+        end
+        self.menuTopContainer.text.anchorY = 0
     else
         if options.imageHeight == nil or options.imageWidth == nil then
             error("If using image you must specify imageHeight and imageWidth")
@@ -201,7 +204,6 @@ function toolbar:createTopContainer(options)
     local triggerWidth = 30
     
     if options.trigger == true then
-        print("trigger")
         local dashOne = display.newLine(xBase, yBase, xBase+triggerWidth, yBase) 
         local dashTwo = display.newLine(xBase, yBase+10, xBase+triggerWidth, yBase+10)
         local dashThree = display.newLine(xBase, yBase+20, xBase+triggerWidth, yBase+20)
